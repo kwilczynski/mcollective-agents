@@ -1,0 +1,23 @@
+#!/usr/bin/env ruby
+
+#
+# mc-echo
+#
+
+require 'mcollective'
+
+if match = $0.match(/mc\-(.+)$/)
+  application_name = match[1]
+
+  if MCollective::Applications.list.include?(application_name)
+    MCollective::Applications.run(application_name)
+  else
+    STDERR.puts "Cannot find the `#{application_name}' command in the ' +
+      'applications plug-in directory."
+  end
+else
+  STDERR.puts "Do not know which command to run, please run `mc help' for details."
+end
+
+# vim: set ts=2 sw=2 et :
+# encoding: utf-8
